@@ -1,4 +1,4 @@
-package components;
+package components.model;
 
 public class Usuario {
 }
