@@ -3,6 +3,7 @@ package components.controllers;
 import components.dtos.CriarUsuarioDTO;
 import components.dtos.UsuarioResponseDto;
 import components.dtos.UsuarioSenhaDTO;
+import components.enums.Role;
 import components.mapper.UsuarioMapper;
 import components.models.Usuario;
 import components.services.UsuarioService;
@@ -24,8 +25,13 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> create(@Valid  @RequestBody CriarUsuarioDTO criarUsuarioDTO){
-        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(criarUsuarioDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
+        Usuario usuario;
+        if (criarUsuarioDTO.getRole() == Role.ROLE_COLABORADOR) {
+            usuario = usuarioService.criarColaborador(UsuarioMapper.toColaborador(criarUsuarioDTO));
+        } else {
+            usuario = usuarioService.salvar(UsuarioMapper.toUsuario(criarUsuarioDTO));
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(usuario));
     }
 
     @GetMapping("/{id}")
