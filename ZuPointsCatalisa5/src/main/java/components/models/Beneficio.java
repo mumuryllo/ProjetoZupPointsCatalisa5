@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,12 +17,13 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Beneficio {
+public class Beneficio implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nome")
+    @NotNull(message = "Nome de beneficio não pode ser vazio!")
+    @Column(name = "nome", nullable = false)
     private String nome;
     @Column(name = "qtdPontosParaComprar")
     private int qtdPontosParaComprar;
