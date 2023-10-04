@@ -2,6 +2,7 @@ package components.mapper;
 
 import components.dtos.CriarUsuarioDTO;
 import components.dtos.UsuarioResponseDto;
+import components.models.Colaborador;
 import components.models.Usuario;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -30,6 +31,14 @@ public class UsuarioMapper {
 
     public static List<UsuarioResponseDto> toListDto(List<Usuario> usuarios){
         return  usuarios.stream().map(user -> toDto(user)).collect(Collectors.toList());
+    }
+
+    public static Colaborador toColaborador(CriarUsuarioDTO criarColaboradorDTO) {
+        Colaborador colaborador = new Colaborador();
+        colaborador.setUsername(criarColaboradorDTO.getUsername());
+        colaborador.setNome(criarColaboradorDTO.getNome());
+        colaborador.setPassword(criarColaboradorDTO.getPassword());
+        return colaborador;
     }
 
 }

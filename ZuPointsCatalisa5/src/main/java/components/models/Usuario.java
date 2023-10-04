@@ -11,6 +11,8 @@ import java.util.Objects;
 @Getter @Setter @NoArgsConstructor
 @Table(name = "usuarios")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "user_type")
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
