@@ -7,6 +7,7 @@ import components.models.Colaborador;
 import components.models.Usuario;
 import components.repositories.AvaliacaoRepository;
 import components.repositories.ColaboradorRepository;
+import components.services.exceptions.AvaliacaoInvalidaException;
 import components.services.exceptions.ColaboradorNaoLogadoException;
 import components.services.exceptions.ColaboradorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,8 @@ public class AvaliacaoService {
             Colaborador destinatario = colaboradorRepository.findByUsername(criarAvaliacaoDTO.getDestinatarioEmail())
                     .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador destinatário não encontrado"));
 
+            validarAvaliacao(remetente, destinatario, criarAvaliacaoDTO);
+
             Avaliacao avaliacao = new Avaliacao();
             avaliacao.setDataDaAvaliacao(LocalDate.now());
             avaliacao.setQtdPontos(criarAvaliacaoDTO.getQtdPontos());
@@ -88,9 +91,33 @@ public class AvaliacaoService {
             avaliacaoResponseDTO.setDestinatarioEmail(avaliacao.getDestinatario().getUsername());
             avaliacaoResponseDTO.setRemetenteEmail(avaliacao.getRemetente().getUsername());
             avaliacaoResponseDTO.setQtdPontos(avaliacao.getQtdPontos());
+
+            // Salvando novas pontuações dos colaboradores
+            distribuirPontosAvaliacao(remetente, destinatario, criarAvaliacaoDTO);
+            colaboradorRepository.save(remetente);
+            colaboradorRepository.save(destinatario);
+
             return avaliacaoResponseDTO;
         } else {
             throw new ColaboradorNaoLogadoException("Colaborador não está logado");
         }
+    }
+
+    public void validarAvaliacao(Colaborador remetente, Colaborador destinatario, CriarAvaliacaoDTO avaliacaoDTO){
+        if (remetente.getUsername().equalsIgnoreCase(destinatario.getUsername())){
+            throw new AvaliacaoInvalidaException("Um colaborador não pode se auto-avaliar");
+        }
+        else if (remetente.getPontosDoacao() < avaliacaoDTO.getQtdPontos()){
+            throw new AvaliacaoInvalidaException(String.format("Quantidade de pontos para doar ( %d ) é maior que a quantidade de pontos disponíveis ( %d )",
+                    remetente.getPontosDoacao(), avaliacaoDTO.getQtdPontos()));
+        }
+        else if (avaliacaoDTO.getQtdPontos() > 10) {
+            throw new AvaliacaoInvalidaException("Quantidade de pontos maior que a quantidade máxima permitida ( 10 )");
+        }
+    }
+
+    public void distribuirPontosAvaliacao(Colaborador remetente, Colaborador destinatario, CriarAvaliacaoDTO avaliacaoDTO){
+        remetente.setPontosDoacao(remetente.getPontosDoacao() - avaliacaoDTO.getQtdPontos());
+        destinatario.setPontosAcumulados(destinatario.getPontosAcumulados() + avaliacaoDTO.getQtdPontos());
     }
 }
