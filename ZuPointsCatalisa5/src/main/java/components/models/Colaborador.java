@@ -1,6 +1,8 @@
 package components.models;
 
 import components.enums.Role;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.persistence.DiscriminatorValue;
@@ -9,6 +11,8 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @DiscriminatorValue("colaborador")
 public class Colaborador extends Usuario{
 
