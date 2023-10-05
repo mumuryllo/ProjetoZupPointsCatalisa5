@@ -1,5 +1,6 @@
 package components.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import components.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@DiscriminatorValue("colaborador")
 public class Colaborador extends Usuario{
 
     private int pontosAcumulados;
@@ -26,6 +26,9 @@ public class Colaborador extends Usuario{
     @OneToMany(mappedBy = "remetente")
     private List<Avaliacao> avaliacoesFeitas;
 
+    @OneToMany(mappedBy = "colaborador")
+    @JsonIgnore
+    private List<Certificado> certificadosEnviados;
 
     public Colaborador() {
         setRole(Role.ROLE_COLABORADOR);

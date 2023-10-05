@@ -1,6 +1,8 @@
 package components.services;
 
 import components.enums.Role;
+import components.enums.ValidarCertificado;
+import components.models.Certificado;
 import components.models.Colaborador;
 import components.models.Usuario;
 import components.repositories.ColaboradorRepository;
@@ -52,21 +54,6 @@ public class UsuarioService {
         );
     }
 
-    @Transactional
-    public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmarSenha){
-
-        if (!novaSenha.equals(confirmarSenha)){
-            throw  new RuntimeException("Nova senha não condiz com confirmação de senha!");
-        }
-
-        Usuario user = buscarId(id);
-        if (!passwordEncoder.matches(senhaAtual,user.getPassword())){
-            throw new RuntimeException("Senha não confere!");
-        }
-
-        user.setPassword(passwordEncoder.encode(novaSenha));
-        return user;
-    }
 
     @Transactional(readOnly = true)
     public List<Usuario> listarTodos() {

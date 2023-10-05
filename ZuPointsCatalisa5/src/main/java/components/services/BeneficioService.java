@@ -18,8 +18,8 @@ public class BeneficioService {
     private BeneficioRepository beneficioRepository;
 
     public Beneficio criarBeneficio(Beneficio beneficio) {
-        int pontos = calcularPontos(beneficio);
-        beneficio.setQtdPontosParaComprar(pontos);
+//        int pontos = calcularPontos(beneficio);
+//        beneficio.setQtdPontosParaComprar(pontos);
 
         beneficio.setVoucher(gerarVoucher());
 
@@ -36,38 +36,38 @@ public class BeneficioService {
         return beneficioRepository.findById(id);
     }
 
-    private int calcularPontos(Beneficio beneficio) throws BeneficioException{
-        double valor = beneficio.getValor();
-        String nome = beneficio.getNome();
-
-        int pontos = beneficio.getQtdPontosParaComprar();
-
-        if ("Netflix".equalsIgnoreCase(nome)) {
-            pontos = 30;
-            beneficio.setValor(50);
-        } else if ("Uber".equalsIgnoreCase(nome) ) {
-            pontos = 30;
-            beneficio.setValor(50);
-        } else if ("Americanas".equalsIgnoreCase(nome)) {
-            pontos = 20;
-            beneficio.setValor(30);
-        } else if ("Ifood".equalsIgnoreCase(nome)) {
-            pontos = 50;
-            beneficio.setValor(100);
-        } else if ("Amazon".equalsIgnoreCase(nome)) {
-            pontos = 75;
-            beneficio.setValor(60);
-        } else if ("Udemy".equalsIgnoreCase(nome)) {
-            pontos = 40;
-            beneficio.setValor(15);
-        } else if ("Alura".equalsIgnoreCase(nome)) {
-            pontos =120;
-            beneficio.setValor(100);
-        }else {
-            throw new BeneficioException("Nome de beneficio inválido!");
-        }
-        return pontos;
-    }
+//    private int calcularPontos(Beneficio beneficio) throws BeneficioException{
+//        double valor = beneficio.getValor();
+//        String nome = beneficio.getNome();
+//
+//        int pontos = beneficio.getQtdPontosParaComprar();
+//
+//        if ("Netflix".equalsIgnoreCase(nome)) {
+//            pontos = 30;
+//            beneficio.setValor(50);
+//        } else if ("Uber".equalsIgnoreCase(nome) ) {
+//            pontos = 30;
+//            beneficio.setValor(50);
+//        } else if ("Americanas".equalsIgnoreCase(nome)) {
+//            pontos = 20;
+//            beneficio.setValor(30);
+//        } else if ("Ifood".equalsIgnoreCase(nome)) {
+//            pontos = 50;
+//            beneficio.setValor(100);
+//        } else if ("Amazon".equalsIgnoreCase(nome)) {
+//            pontos = 75;
+//            beneficio.setValor(60);
+//        } else if ("Udemy".equalsIgnoreCase(nome)) {
+//            pontos = 40;
+//            beneficio.setValor(15);
+//        } else if ("Alura".equalsIgnoreCase(nome)) {
+//            pontos =120;
+//            beneficio.setValor(100);
+//        }else {
+//            throw new BeneficioException("Nome de beneficio inválido!");
+//        }
+//        return pontos;
+//    }
 
     private String gerarVoucher() {
 

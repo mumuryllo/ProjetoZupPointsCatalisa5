@@ -1,6 +1,8 @@
 package components.controllers;
 
+import components.dtos.CertificadoDTO;
 import components.models.Certificado;
+import components.models.Colaborador;
 import components.services.CertificadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,15 +27,21 @@ public class CertificadoController {
     @GetMapping ("/{id}")
     @PreAuthorize("hasRole('COLABORADOR')")
     public ResponseEntity<Certificado> getId(@PathVariable Long id){
-        Certificado certificado= certificadoService.listarCategoriaId (id);
-        return ResponseEntity.ok () .body (certificado);
+        Certificado certificado= certificadoService.listarCertificadoId(id);
+        return ResponseEntity.ok ().body(certificado);
+    }
+
+    @PreAuthorize("hasRole('GESTOR')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Certificado> update(@PathVariable Long id,@RequestBody Certificado obj){
+        obj= certificadoService.update(id,obj);
+        return  ResponseEntity.status(200).body(obj);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('COLABORADOR')")
-    public ResponseEntity<Certificado> criar(@RequestBody Certificado certificado){
-        Certificado certificados= certificadoService.cadastrar (certificado);
-        return ResponseEntity.status (HttpStatus.CREATED).body (certificados);
-
+    public ResponseEntity<CertificadoDTO> criar(@RequestBody CertificadoDTO certificado){
+        CertificadoDTO certificados = certificadoService.criarCertificado(certificado);
+        return ResponseEntity.status(HttpStatus.CREATED).body (certificados);
     }
 }

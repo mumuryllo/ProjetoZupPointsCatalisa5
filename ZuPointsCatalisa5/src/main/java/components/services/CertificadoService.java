@@ -1,11 +1,27 @@
 package components.services;
 
+import components.dtos.AvaliacaoResponseDTO;
+import components.dtos.CertificadoDTO;
+import components.dtos.CriarAvaliacaoDTO;
+import components.enums.ValidarCertificado;
+import components.models.Avaliacao;
 import components.models.Certificado;
+import components.models.Colaborador;
 import components.repositories.CertificadoRepository;
+import components.repositories.ColaboradorRepository;
+import components.services.exceptions.ColaboradorNaoLogadoException;
+import components.services.exceptions.ColaboradorNotFoundException;
 import components.services.exceptions.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,17 +30,73 @@ public class CertificadoService {
 
     @Autowired
     private CertificadoRepository certificadoRepository;
+    @Autowired
+    private ColaboradorRepository colaboradorRepository;
 
-    public List <Certificado> listar(){
+    public List<Certificado> listar() {
         return certificadoRepository.findAll();
     }
 
-    public Certificado listarCategoriaId (Long id){
-        Optional<Certificado> obj=certificadoRepository.findById(id);
-        return obj.orElseThrow(() -> new UsernameNotFoundException (id + " Não encontrado!"));
+    public Certificado listarCertificadoId(Long id) {
+        Optional<Certificado> obj = certificadoRepository.findById(id);
+        return obj.orElseThrow(() -> new UsernameNotFoundException(id + " Não encontrado!"));
     }
 
-    public Certificado cadastrar(Certificado certificado) {
+    public CertificadoDTO criarCertificado(CertificadoDTO certificadoDto) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String colaboradorUsername = userDetails.getUsername();
+
+            Certificado certificados = new Certificado();
+
+
+            Colaborador colaborador = colaboradorRepository.findByUsername(colaboradorUsername)
+                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador remetente não encontrado"));
+
+            certificados.setNome(certificadoDto.getNome());
+            certificados.setNumero_credencial(certificadoDto.getNumero_credencial());
+            certificados.setTipo_certificado(certificadoDto.getTipoCertificado());
+            certificados.setLink(certificadoDto.getLink());
+            certificados.setCertificado_valido(certificadoDto.getValidarCertificado());
+            certificados.setColaborador(colaborador);
+
+            colaborador.getCertificadosEnviados().add(certificados);
+            colaboradorRepository.save(colaborador);
+            certificadoRepository.save(certificados);
+
+            return certificadoDto;
+        } else {
+            throw new ColaboradorNaoLogadoException("Colaborador não está logado");
+        }
+    }
+
+    @Transactional
+    public Certificado atualizarTipoCertificado(Long id) {
+        Certificado certificado = new Certificado();
+        certificado.getId();
+        certificado.setCertificado_valido(certificado.getCertificado_valido());
         return certificadoRepository.save(certificado);
     }
+
+    public Certificado update(Long id,Certificado obj){
+            Certificado certificado = certificadoRepository.getReferenceById(id);
+            updateData(certificado,obj);
+            return certificadoRepository.save(certificado);
+    }
+    private void updateData(Certificado certificado, Certificado obj) {
+        certificado.setCertificado_valido(obj.getCertificado_valido());
+
+        if (obj.getCertificado_valido()==ValidarCertificado.VALIDO) {
+            Colaborador colaborador = certificado.getColaborador();
+            if (colaborador != null) {
+                colaborador.setPontosAcumulados(colaborador.getPontosAcumulados() + 10);
+            }
+        }
+
+    }
+
 }
