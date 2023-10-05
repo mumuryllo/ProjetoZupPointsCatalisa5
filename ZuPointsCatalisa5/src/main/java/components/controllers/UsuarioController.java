@@ -2,9 +2,9 @@ package components.controllers;
 
 import components.dtos.CriarUsuarioDTO;
 import components.dtos.UsuarioResponseDto;
-import components.dtos.UsuarioSenhaDTO;
 import components.enums.Role;
 import components.mapper.UsuarioMapper;
+import components.models.Colaborador;
 import components.models.Usuario;
 import components.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -41,11 +41,7 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> upadtePassword(@Valid @PathVariable Long id, @RequestBody UsuarioSenhaDTO usuario){
-        Usuario user = usuarioService.editarSenha(id,usuario.getSenhaAtual(),usuario.getNovaSenha(),usuario.getConfirmarSenha());
-        return ResponseEntity.noContent().build();
-    }
+
 
     @GetMapping
     @PreAuthorize("hasRole('GESTOR')")

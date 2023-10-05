@@ -1,9 +1,6 @@
 package components.services;
 
-import components.dtos.AvaliacaoResponseDTO;
 import components.dtos.BeneficioRequestDTO;
-import components.dtos.CriarAvaliacaoDTO;
-import components.models.Avaliacao;
 import components.models.Beneficio;
 import components.models.Colaborador;
 import components.repositories.BeneficioRepository;
@@ -16,9 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;

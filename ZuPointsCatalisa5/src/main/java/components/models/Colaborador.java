@@ -1,5 +1,6 @@
 package components.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import components.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,10 @@ public class Colaborador extends Usuario{
     @OneToMany(mappedBy = "remetente")
     private List<Avaliacao> avaliacoesFeitas;
 
+    @OneToMany(mappedBy = "colaborador")
+    @JsonIgnore
+    private List<Certificado> certificadosEnviados;
+
     @ManyToMany
     @JoinTable(
             name = "colaborador_beneficio",
@@ -31,6 +36,7 @@ public class Colaborador extends Usuario{
             inverseJoinColumns = @JoinColumn(name = "beneficio_id")
     )
     private List<Beneficio> beneficios = new ArrayList<>();
+
 
 
     public Colaborador() {
