@@ -6,9 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +28,16 @@ public class Colaborador extends Usuario{
     @OneToMany(mappedBy = "colaborador")
     @JsonIgnore
     private List<Certificado> certificadosEnviados;
+
+    @ManyToMany
+    @JoinTable(
+            name = "colaborador_beneficio",
+            joinColumns = @JoinColumn(name = "colaborador_id"),
+            inverseJoinColumns = @JoinColumn(name = "beneficio_id")
+    )
+    private List<Beneficio> beneficios = new ArrayList<>();
+
+
 
     public Colaborador() {
         setRole(Role.ROLE_COLABORADOR);

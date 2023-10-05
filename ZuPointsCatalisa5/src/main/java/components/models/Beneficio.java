@@ -1,6 +1,7 @@
 package components.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "beneficios")
@@ -27,6 +30,7 @@ public class Beneficio implements Serializable{
     private String nome;
     @Column(name = "qtdPontosParaComprar")
     private int qtdPontosParaComprar;
+    private int qtdDisponivel;
     @Column(name = "valor")
     private double valor;
     @Column(name = "voucher")
@@ -35,5 +39,9 @@ public class Beneficio implements Serializable{
     @Column(name = "tempoRegaste")
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private LocalDateTime tempoRegaste = LocalDateTime.now();
+
+    @ManyToMany(mappedBy = "beneficios")
+    @JsonIgnore
+    private List<Colaborador> colaboradores = new ArrayList<>();
 
 }
