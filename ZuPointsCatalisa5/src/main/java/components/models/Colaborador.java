@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@DiscriminatorValue("colaborador")
 public class Colaborador extends Usuario{
 
     private int pontosAcumulados;
@@ -25,6 +23,14 @@ public class Colaborador extends Usuario{
 
     @OneToMany(mappedBy = "remetente")
     private List<Avaliacao> avaliacoesFeitas;
+
+    @ManyToMany
+    @JoinTable(
+            name = "colaborador_beneficio",
+            joinColumns = @JoinColumn(name = "colaborador_id"),
+            inverseJoinColumns = @JoinColumn(name = "beneficio_id")
+    )
+    private List<Beneficio> beneficios = new ArrayList<>();
 
 
     public Colaborador() {
