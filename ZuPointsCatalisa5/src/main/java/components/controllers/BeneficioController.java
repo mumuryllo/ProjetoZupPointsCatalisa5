@@ -1,5 +1,6 @@
 package components.controllers;
 
+import components.dtos.BeneficioRequestDTO;
 import components.models.Beneficio;
 import components.services.BeneficioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,16 @@ public class BeneficioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('GESTOR')")
     public ResponseEntity<Beneficio> criarBeneficio(@RequestBody Beneficio beneficio) {
         Beneficio novoBeneficio = beneficioService.criarBeneficio(beneficio);
+        return new ResponseEntity<>(novoBeneficio, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/resgatar")
+    @PreAuthorize("hasRole('COLABORADOR')")
+    public ResponseEntity<Beneficio> resgatarBeneficio(@RequestBody BeneficioRequestDTO beneficioRequestDTO) {
+        Beneficio novoBeneficio = beneficioService.adicionarBeneficioColaborador(beneficioRequestDTO);
         return new ResponseEntity<>(novoBeneficio, HttpStatus.CREATED);
     }
 
