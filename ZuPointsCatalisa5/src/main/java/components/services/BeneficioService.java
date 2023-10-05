@@ -1,12 +1,24 @@
 package components.services;
 
+import components.dtos.AvaliacaoResponseDTO;
+import components.dtos.BeneficioRequestDTO;
+import components.dtos.CriarAvaliacaoDTO;
+import components.models.Avaliacao;
 import components.models.Beneficio;
+import components.models.Colaborador;
 import components.repositories.BeneficioRepository;
-import components.services.exceptions.BeneficioException;
+import components.repositories.ColaboradorRepository;
+import components.services.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +29,42 @@ public class BeneficioService {
     @Autowired
     private BeneficioRepository beneficioRepository;
 
+    @Autowired
+    private ColaboradorRepository colaboradorRepository;
+
     public Beneficio criarBeneficio(Beneficio beneficio) {
-        int pontos = calcularPontos(beneficio);
-        beneficio.setQtdPontosParaComprar(pontos);
-
         beneficio.setVoucher(gerarVoucher());
-
         definirTempoDeResgate(beneficio);
-
         return beneficioRepository.save(beneficio);
+    }
+
+    public Beneficio adicionarBeneficioColaborador(BeneficioRequestDTO beneficioRequestDTO){
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String colaboradorUsername = userDetails.getUsername();
+
+            Colaborador colaboradorLogado = colaboradorRepository.findByUsername(colaboradorUsername)
+                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador não encontrado"));
+
+            Beneficio beneficioResgatado = beneficioRepository.findById(beneficioRequestDTO.getId())
+                    .orElseThrow(() -> new BeneficioNotFoundException("Benefício não encontrado"));
+
+            validarBeneficio(colaboradorLogado, beneficioResgatado);
+
+            colaboradorLogado.getBeneficios().add(beneficioResgatado);
+
+            beneficioResgatado.setQtdDisponivel(beneficioResgatado.getQtdDisponivel() - 1);
+
+            colaboradorRepository.save(colaboradorLogado);
+            beneficioRepository.save(beneficioResgatado);
+
+            return beneficioResgatado;
+        } else {
+            throw new ColaboradorNaoLogadoException("Colaborador não está logado");
+        }
     }
 
     public List<Beneficio> listarTodosBeneficios() {
@@ -34,39 +73,6 @@ public class BeneficioService {
 
     public Optional<Beneficio> listarBeneficioPorId(Long id) {
         return beneficioRepository.findById(id);
-    }
-
-    private int calcularPontos(Beneficio beneficio) throws BeneficioException{
-        double valor = beneficio.getValor();
-        String nome = beneficio.getNome();
-
-        int pontos = beneficio.getQtdPontosParaComprar();
-
-        if ("Netflix".equalsIgnoreCase(nome)) {
-            pontos = 30;
-            beneficio.setValor(50);
-        } else if ("Uber".equalsIgnoreCase(nome) ) {
-            pontos = 30;
-            beneficio.setValor(50);
-        } else if ("Americanas".equalsIgnoreCase(nome)) {
-            pontos = 20;
-            beneficio.setValor(30);
-        } else if ("Ifood".equalsIgnoreCase(nome)) {
-            pontos = 50;
-            beneficio.setValor(100);
-        } else if ("Amazon".equalsIgnoreCase(nome)) {
-            pontos = 75;
-            beneficio.setValor(60);
-        } else if ("Udemy".equalsIgnoreCase(nome)) {
-            pontos = 40;
-            beneficio.setValor(15);
-        } else if ("Alura".equalsIgnoreCase(nome)) {
-            pontos =120;
-            beneficio.setValor(100);
-        }else {
-            throw new BeneficioException("Nome de beneficio inválido!");
-        }
-        return pontos;
     }
 
     private String gerarVoucher() {
@@ -90,6 +96,15 @@ public class BeneficioService {
         LocalDateTime dataDeExpiracao = dataAtual.plus(30, ChronoUnit.DAYS);
 
         beneficio.setTempoRegaste(dataDeExpiracao);
+    }
+
+    public void validarBeneficio(Colaborador colaborador, Beneficio beneficio){
+        if (beneficio.getQtdDisponivel() <= 0) {
+            throw new ResgatarBeneficioException("Não há quantidade disponível deste benefício");
+        }
+        if (colaborador.getPontosAcumulados() < beneficio.getQtdPontosParaComprar()){
+            throw new ResgatarBeneficioException("O colaborador não possui quantidade de pontos para comprar este benefício");
+        }
     }
 
 }
