@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,14 +34,14 @@ public class CertificadoController {
 
     @PreAuthorize("hasRole('GESTOR')")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Certificado> update(@PathVariable Long id,@RequestBody Certificado obj){
+    public ResponseEntity<Certificado> update(@PathVariable Long id,@Valid @RequestBody Certificado obj){
         obj= certificadoService.update(id,obj);
         return  ResponseEntity.status(200).body(obj);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('COLABORADOR')")
-    public ResponseEntity<CertificadoDTO> criar(@RequestBody CertificadoDTO certificado){
+    public ResponseEntity<CertificadoDTO> criar(@Valid @RequestBody CertificadoDTO certificado){
         CertificadoDTO certificados = certificadoService.criarCertificado(certificado);
         return ResponseEntity.status(HttpStatus.CREATED).body (certificados);
     }

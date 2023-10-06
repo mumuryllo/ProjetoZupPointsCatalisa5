@@ -108,7 +108,7 @@ public class AvaliacaoService {
         }
         else if (remetente.getPontosDoacao() < avaliacaoDTO.getQtdPontos()){
             throw new AvaliacaoInvalidaException(String.format("Quantidade de pontos para doar ( %d ) é maior que a quantidade de pontos disponíveis ( %d )",
-                    remetente.getPontosDoacao(), avaliacaoDTO.getQtdPontos()));
+                    avaliacaoDTO.getQtdPontos(), remetente.getPontosDoacao()));
         }
         else if (avaliacaoDTO.getQtdPontos() > 10) {
             throw new AvaliacaoInvalidaException("Quantidade de pontos maior que a quantidade máxima permitida ( 10 )");

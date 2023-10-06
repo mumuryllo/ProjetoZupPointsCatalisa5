@@ -8,8 +8,10 @@ import components.repositories.CertificadoRepository;
 import components.repositories.ColaboradorRepository;
 import components.services.exceptions.ColaboradorNaoLogadoException;
 import components.services.exceptions.ColaboradorNaoEncontradoException;
+import components.services.exceptions.CredencialUniqueViolationException;
 import components.services.exceptions.UsernameNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +43,9 @@ public class CertificadoService {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
 
+        try{
+
+
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -66,6 +71,9 @@ public class CertificadoService {
             return certificadoDto;
         } else {
             throw new ColaboradorNaoLogadoException("Colaborador não está logado");
+        }
+        } catch (DataIntegrityViolationException e){
+            throw new CredencialUniqueViolationException("Um certificado com essa credencial já existe");
         }
     }
 

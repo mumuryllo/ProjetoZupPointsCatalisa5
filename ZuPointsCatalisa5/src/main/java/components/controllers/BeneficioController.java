@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class BeneficioController {
 
     @PostMapping("/resgatar")
     @PreAuthorize("hasRole('COLABORADOR')")
-    public ResponseEntity<Beneficio> resgatarBeneficio(@RequestBody BeneficioRequestDTO beneficioRequestDTO) {
+    public ResponseEntity<Beneficio> resgatarBeneficio(@Valid @RequestBody BeneficioRequestDTO beneficioRequestDTO) {
         Beneficio novoBeneficio = beneficioService.adicionarBeneficioColaborador(beneficioRequestDTO);
         return new ResponseEntity<>(novoBeneficio, HttpStatus.CREATED);
     }

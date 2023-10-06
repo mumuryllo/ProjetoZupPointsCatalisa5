@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class AvaliacaoController {
 
     @PostMapping
     @PreAuthorize("hasRole('COLABORADOR')")
-    public ResponseEntity<AvaliacaoResponseDTO> criar (@RequestBody CriarAvaliacaoDTO criarAvaliacaoDTO){
+    public ResponseEntity<AvaliacaoResponseDTO> criar (@Valid @RequestBody CriarAvaliacaoDTO criarAvaliacaoDTO){
         AvaliacaoResponseDTO avaliacao = avaliacaoService.criarAvaliacao(criarAvaliacaoDTO);
         return new ResponseEntity<>(avaliacao, HttpStatus.CREATED);
     }

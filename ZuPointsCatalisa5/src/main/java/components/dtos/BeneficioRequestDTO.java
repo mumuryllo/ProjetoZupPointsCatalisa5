@@ -12,8 +12,5 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class BeneficioRequestDTO {
-
-    @NotEmpty(message = "O id não pode ser vazio")
     private Long id;
-
 }

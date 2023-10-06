@@ -27,7 +27,6 @@ public class CertificadoDTO {
 
     private ValidarCertificado validarCertificado = ValidarCertificado.PENDENTE;
 
-    @NotEmpty(message = "O tipo de certificado não pode estar vazio")
     private TipoCertificado tipoCertificado;
 
 }

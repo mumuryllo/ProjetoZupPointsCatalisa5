@@ -39,6 +39,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 
+    @ExceptionHandler(CredencialUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> handleEntidadeNaoEncontradaException(CredencialUniqueViolationException exception) {
+        ErrorMessage errorResponse = new ErrorMessage(HttpStatus.CONFLICT, HttpStatus.CONFLICT.value(), exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
     @ExceptionHandler(UsernameNaoEncontradoException.class)
     public ResponseEntity<ErrorMessage> handleEntidadeNaoEncontradaException(UsernameNaoEncontradoException exception) {
         ErrorMessage errorResponse = new ErrorMessage(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value(), exception.getMessage());
@@ -82,7 +88,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> handleDataIntegrityViolationException(DataIntegrityViolationException ex ) {
-        String errorMessage = "Não é possível deletar essa entidade por ela estar relacionada a outra";
+        String errorMessage = "A constraint não pode ser a mesma";
         ErrorMessage errorResponse = new ErrorMessage(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), errorMessage);
         return ResponseEntity.badRequest().body(errorResponse);
     }
