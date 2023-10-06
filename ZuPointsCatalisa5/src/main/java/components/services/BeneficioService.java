@@ -41,10 +41,10 @@ public class BeneficioService {
             String colaboradorUsername = userDetails.getUsername();
 
             Colaborador colaboradorLogado = colaboradorRepository.findByUsername(colaboradorUsername)
-                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador não encontrado"));
+                    .orElseThrow(() -> new ColaboradorNaoEncontradoException("Colaborador não encontrado"));
 
             Beneficio beneficioResgatado = beneficioRepository.findById(beneficioRequestDTO.getId())
-                    .orElseThrow(() -> new BeneficioNotFoundException("Benefício não encontrado"));
+                    .orElseThrow(() -> new BeneficioNaoEncontradoException("Benefício não encontrado"));
 
             validarBeneficio(colaboradorLogado, beneficioResgatado);
             definirTempoDeResgate(beneficioResgatado);
@@ -96,10 +96,10 @@ public class BeneficioService {
 
     public void validarBeneficio(Colaborador colaborador, Beneficio beneficio){
         if (beneficio.getQtdDisponivel() <= 0) {
-            throw new ResgatarBeneficioException("Não há quantidade disponível deste benefício");
+            throw new ResgatarBeneficioInvalidoException("Não há quantidade disponível deste benefício");
         }
         if (colaborador.getPontosAcumulados() < beneficio.getQtdPontosParaComprar()){
-            throw new ResgatarBeneficioException("O colaborador não possui quantidade de pontos para comprar este benefício");
+            throw new ResgatarBeneficioInvalidoException("O colaborador não possui quantidade de pontos para comprar este benefício");
         }
     }
 

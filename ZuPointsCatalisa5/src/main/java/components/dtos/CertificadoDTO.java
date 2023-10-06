@@ -7,16 +7,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class CertificadoDTO {
 
+    @NotBlank(message = "Nome do certificado não pode ser vazio.")
     private String nome;
+
+    @NotBlank(message = "Número da credencial não pode ser vazio")
     private String numero_credencial;
+
+    @NotBlank(message = "O link não pode estar vazio")
     private String link;
+
     private ValidarCertificado validarCertificado = ValidarCertificado.PENDENTE;
+
+    @NotEmpty(message = "O tipo de certificado não pode estar vazio")
     private TipoCertificado tipoCertificado;
 
 }

@@ -4,12 +4,11 @@ import components.dtos.AvaliacaoResponseDTO;
 import components.dtos.CriarAvaliacaoDTO;
 import components.models.Avaliacao;
 import components.models.Colaborador;
-import components.models.Usuario;
 import components.repositories.AvaliacaoRepository;
 import components.repositories.ColaboradorRepository;
 import components.services.exceptions.AvaliacaoInvalidaException;
 import components.services.exceptions.ColaboradorNaoLogadoException;
-import components.services.exceptions.ColaboradorNotFoundException;
+import components.services.exceptions.ColaboradorNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -39,7 +38,7 @@ public class AvaliacaoService {
             String destinatarioEmail = userDetails.getUsername();
 
             Colaborador destinatario = colaboradorRepository.findByUsername(destinatarioEmail)
-                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador destinatário não encontrado"));
+                    .orElseThrow(() -> new ColaboradorNaoEncontradoException("Colaborador destinatário não encontrado"));
 
             List<Avaliacao> avaliacoes = avaliacaoRepository.findAllByDestinatario_Id(destinatario.getId());
             List<AvaliacaoResponseDTO> avaliacaoResponseDTOList = new ArrayList<>();
@@ -68,10 +67,10 @@ public class AvaliacaoService {
             String remetenteUsername = userDetails.getUsername();
 
             Colaborador remetente = colaboradorRepository.findByUsername(remetenteUsername)
-                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador remetente não encontrado"));
+                    .orElseThrow(() -> new ColaboradorNaoEncontradoException("Colaborador remetente não encontrado"));
 
             Colaborador destinatario = colaboradorRepository.findByUsername(criarAvaliacaoDTO.getDestinatarioEmail())
-                    .orElseThrow(() -> new ColaboradorNotFoundException("Colaborador destinatário não encontrado"));
+                    .orElseThrow(() -> new ColaboradorNaoEncontradoException("Colaborador destinatário não encontrado"));
 
             validarAvaliacao(remetente, destinatario, criarAvaliacaoDTO);
 

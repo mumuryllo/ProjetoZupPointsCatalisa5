@@ -1,13 +1,11 @@
 package components.services;
 
 import components.enums.Role;
-import components.enums.ValidarCertificado;
-import components.models.Certificado;
 import components.models.Colaborador;
 import components.models.Usuario;
 import components.repositories.ColaboradorRepository;
 import components.repositories.UsuarioRepository;
-import components.services.exceptions.UsernameNotFoundException;
+import components.services.exceptions.UsernameNaoEncontradoException;
 import components.services.exceptions.UsernameUniqueViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +41,14 @@ public class UsuarioService {
             colaborador.setPassword(passwordEncoder.encode(colaborador.getPassword()));
             return colaboradorRepository.save(colaborador);
         } catch (DataIntegrityViolationException e) {
-            throw new UsernameUniqueViolationException("Erro ao criar colaborador", colaborador.getUsername());
+            throw new UsernameUniqueViolationException("Colaborador com esse username já criado", colaborador.getUsername());
         }
     }
 
     @Transactional(readOnly = true)
     public Usuario buscarId(Long id){
         return  usuarioRepository.findById(id).orElseThrow(
-                ()-> new UsernameNotFoundException(String.format("Não encontrado! ID - '%d'",id))
+                ()-> new UsernameNaoEncontradoException(String.format("Usuário não encontrado! ID - '%d'",id))
         );
     }
 
@@ -63,7 +61,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorUserName(String username) {
         return usuarioRepository.findByUsername(username).orElseThrow(
-                ()-> new UsernameNotFoundException(String.format("Usuario com '%s' encontrado!",username))
+                ()-> new UsernameNaoEncontradoException(String.format("Usuario com não '%s' encontrado!",username))
         );
     }
 
