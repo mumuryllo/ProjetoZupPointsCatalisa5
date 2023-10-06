@@ -35,7 +35,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('COLABORADOR') OR hasRole('GESTOR')")
     public ResponseEntity<UsuarioResponseDto> getById(@PathVariable Long id){
         Usuario user = usuarioService.buscarId(id);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
@@ -44,7 +44,7 @@ public class UsuarioController {
 
 
     @GetMapping
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') OR hasRole('COLABORADOR')")
     public ResponseEntity<List<UsuarioResponseDto>> getAll(){
         List<Usuario> usuarios = usuarioService.listarTodos();
         return ResponseEntity.ok(UsuarioMapper.toListDto(usuarios));

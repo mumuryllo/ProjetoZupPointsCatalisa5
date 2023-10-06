@@ -19,13 +19,13 @@ public class CertificadoController {
     @Autowired
     private CertificadoService certificadoService;
     @GetMapping
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('COLABORADOR') OR hasRole('GESTOR')")
     public ResponseEntity<List<Certificado>> Listar(){
         List <Certificado> certificados= certificadoService.listar ();
         return ResponseEntity.ok ( certificados );
     }
     @GetMapping ("/{id}")
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('COLABORADOR') OR hasRole('GESTOR')")
     public ResponseEntity<Certificado> getId(@PathVariable Long id){
         Certificado certificado= certificadoService.listarCertificadoId(id);
         return ResponseEntity.ok ().body(certificado);

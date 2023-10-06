@@ -29,7 +29,6 @@ public class BeneficioService {
 
     public Beneficio criarBeneficio(Beneficio beneficio) {
         beneficio.setVoucher(gerarVoucher());
-        definirTempoDeResgate(beneficio);
         return beneficioRepository.save(beneficio);
     }
 
@@ -48,6 +47,8 @@ public class BeneficioService {
                     .orElseThrow(() -> new BeneficioNotFoundException("Benefício não encontrado"));
 
             validarBeneficio(colaboradorLogado, beneficioResgatado);
+            definirTempoDeResgate(beneficioResgatado);
+
 
             colaboradorLogado.getBeneficios().add(beneficioResgatado);
 
@@ -90,7 +91,7 @@ public class BeneficioService {
 
         LocalDateTime dataDeExpiracao = dataAtual.plus(30, ChronoUnit.DAYS);
 
-        beneficio.setTempoRegaste(dataDeExpiracao);
+        beneficio.setDataCriacao(dataDeExpiracao);
     }
 
     public void validarBeneficio(Colaborador colaborador, Beneficio beneficio){

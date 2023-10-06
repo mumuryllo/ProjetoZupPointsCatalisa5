@@ -21,7 +21,7 @@ public class BeneficioController {
 
 
     @GetMapping
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('COLABORADOR') OR hasRole('GESTOR')")
     public ResponseEntity<List<Beneficio>> listarBeneficios() {
         List<Beneficio> beneficios = beneficioService.listarTodosBeneficios();
         return new ResponseEntity<>(beneficios, HttpStatus.OK);
@@ -29,7 +29,7 @@ public class BeneficioController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('COLABORADOR')")
+    @PreAuthorize("hasRole('COLABORADOR') OR hasRole('GESTOR')")
     public ResponseEntity<Beneficio> listarBeneficioPorId(@PathVariable Long id) {
         Optional<Beneficio> beneficio = beneficioService.listarBeneficioPorId(id);
         if (beneficio.isPresent()) {

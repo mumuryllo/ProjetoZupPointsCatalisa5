@@ -38,7 +38,7 @@ public class Beneficio implements Serializable{
 
     @Column(name = "tempoRegaste")
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime tempoRegaste = LocalDateTime.now();
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @ManyToMany(mappedBy = "beneficios")
     @JsonIgnore
