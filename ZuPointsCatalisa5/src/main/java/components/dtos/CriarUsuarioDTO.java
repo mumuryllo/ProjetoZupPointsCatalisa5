@@ -11,15 +11,15 @@ import javax.validation.constraints.Size;
 @ToString
 public class CriarUsuarioDTO {
 
-    @NotBlank
+    @NotBlank(message = "O nome do usuário não pode ser vazio")
     private String nome;
 
     @NotBlank
-    @Email(message = "Formato de e-mail está inválido!")
+    @Email(message = "Formato de e-mail está inválido!", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String username;
 
-    @NotBlank
-    @Size(min = 6,max = 6)
+    @NotBlank(message = "A senha não pode ser vazia")
+    @Size(min = 6, message = "A senha deve ter o mínimo de 6 dígitos")
     private String password;
 
     private Role role=Role.ROLE_COLABORADOR;

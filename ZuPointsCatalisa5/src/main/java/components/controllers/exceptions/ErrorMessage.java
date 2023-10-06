@@ -1,53 +1,30 @@
 package components.controllers.exceptions;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
-@ToString
+@Setter
 public class ErrorMessage {
+    private HttpStatus status;
+    private int statusCode;
+    private List<String> message;
 
-    public ErrorMessage(){
-
+    public ErrorMessage(HttpStatus status, int statusCode, List<String> messages) {
+        super();
+        this.status = status;
+        this.statusCode = statusCode;
+        this.message = messages;
     }
 
-    private String path;
-    private String method;
-    private int status;
-    private String statusText;
-    private String message;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String,String> error;
-
-    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message){
-        this.path = request.getRequestURI();
-        this.method = request.getMethod();
-        this.status = status.value();
-        this.statusText = status.getReasonPhrase();
-        this.message = message;
+    public ErrorMessage(HttpStatus status, int statusCode, String message) {
+        super();
+        this.status = status;
+        this.statusCode = statusCode;
+        this.message = Arrays.asList(message);
     }
-
-    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message, BindingResult result){
-        this.path = request.getRequestURI();
-        this.method = request.getMethod();
-        this.status = status.value();
-        this.statusText = status.getReasonPhrase();
-        this.message = message;
-        addErrors(result);
-    }
-    private  void addErrors(BindingResult result){
-        this.error = new HashMap<>();
-        for (FieldError fieldError:result.getFieldErrors()){
-            this.error.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-    }
-
 }
