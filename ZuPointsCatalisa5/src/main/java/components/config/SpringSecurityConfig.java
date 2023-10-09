@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
@@ -27,19 +28,21 @@ public class SpringSecurityConfig {
 
     private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
+        http.cors();
+
         return http
-                .csrf(csrf-> csrf.disable())
-                .formLogin(form-> form.disable())
-                .httpBasic(basic->basic.disable())
+                .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers(HttpMethod.POST,"/usuarios").permitAll()
-                        .antMatchers(HttpMethod.POST,"/login/auth").permitAll()
+                        .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .antMatchers(HttpMethod.POST, "/login/auth").permitAll()
                         .antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated()
-                ).sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(
                         jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class
                 )
@@ -47,30 +50,36 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-
-    @Bean
-    public JwtAuthorizationFilter jwtAuthenticationFilter(){
-        return  new JwtAuthorizationFilter();
+    public JwtAuthorizationFilter jwtAuthenticationFilter() {
+        return new JwtAuthorizationFilter();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500/"));
+        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
 
+        return source;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter(corsConfigurationSource());
+        return filter;
+    }
 }

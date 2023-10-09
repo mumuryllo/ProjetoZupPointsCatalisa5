@@ -1,0 +1,32 @@
+   body {
+    background-image: url('astronauta-na-lua.jpg'); /* Substitua 'astronauta-na-lua.jpg' pelo caminho da sua imagem de fundo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    height: 100vh;
+}
+
+/* Estilos para o formulário de login */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com transparência */
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+/* Estilos para os campos de entrada */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com transparência */
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o botão de login */
+.btn-login {
+    background-color: #007BFF; /* Cor do botão */
+    color: #fff; /* Cor do texto do botão */
+    border: none;
+    border-radius: 20px;
+}
