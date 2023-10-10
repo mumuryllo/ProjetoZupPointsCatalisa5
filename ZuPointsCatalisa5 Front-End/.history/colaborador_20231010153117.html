@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Funcionários</title>
 
+    <!-- Bootstrap CSS Link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
+    <!-- Custom CSS for Styling -->
     <style>
+        /* Adicionando estilos personalizados para bordas e sombras */
         .custom-border {
             border: 2px solid #ddd;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
         }
+        /* Adicionando margens verticais maiores */
         .mb-4 {
             margin-bottom: 2rem;
         }
@@ -29,12 +33,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="./cadastro_certificado.html">Cadastrar Certificado </a>
-                  </li>
-              </div>
+        </div>
     </nav>
 
     <div class="container-fluid">
@@ -91,8 +90,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 
                 <!-- Divisão vertical -->
                 <div class="row">
@@ -132,28 +129,58 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="accordion" id="certificadosAccordion">
-            <!-- Certificado 1 -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="certificado1Heading">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#certificado1Collapse" aria-expanded="true" aria-controls="certificado1Collapse">
-                        Certificado 1
+    <!-- Botão "Cadastrar Certificado" para abrir o modal -->
+    <button class="btn btn-primary ml-4" data-toggle="modal" data-target="#certificadoModal">
+        Cadastrar Certificado
+    </button>
+
+    <!-- Modal para Cadastrar Certificado -->
+    <div class="modal fade" id="certificadoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Certificado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                </h2>
-                <div id="certificado1Collapse" class="accordion-collapse collapse show" aria-labelledby="certificado1Heading" data-bs-parent="#certificadosAccordion">
-                    <div class="accordion-body">
-                        <p><strong>Nome:</strong> Certificado 1</p>
-                        <p><strong>Link:</strong> <a href="https://www.example.com/certificado1">https://www.example.com/certificado1</a></p>
-                        <p><strong>Número de Credencial:</strong> 12345</p>
-                        <p><strong>Tipo de Certificado:</strong> INTERNO</p>
-                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário para cadastrar certificado -->
+                    <form>
+                        <div class="form-group">
+                            <label for="link">Link</label>
+                            <input type="text" class="form-control" id="link" placeholder="Link do Certificado">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome do Certificado">
+                        </div>
+                        <div class="form-group">
+                            <label for="numero_credencial">Número de Credencial</label>
+                            <input type="text" class="form-control" id="numero_credencial" placeholder="Número de Credencial">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipoCertificado">Tipo de Certificado</label>
+                            <select class="form-control" id="tipoCertificado">
+                                <option value="INTERNO">INTERNO</option>
+                                <option value="EXTERNO">EXTERNO</option>
+                                <option value="OUTRO">OUTRO</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
-        
-          
-
+        </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- ... (seu código de scripts jQuery e Bootstrap existente) ... -->
 </body>
+
 </html>
