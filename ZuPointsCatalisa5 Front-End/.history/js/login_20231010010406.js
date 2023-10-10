@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.error('Usuário tem múltiplas funções. Especifique uma função.');
                     } else if (userRole === 'ROLE_COLABORADOR') {
                         window.location.href = 'colaborador.html';
-                    } else if (userRole === 'GESTOR') {
+                    } else if (userRole === 'ROLE_GESTOR') {
                         window.location.href = 'gestor.html';
                     } else {
                         console.error('Função de usuário desconhecida:', userRole);

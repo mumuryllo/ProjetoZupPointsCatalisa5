@@ -36,23 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(userList => {
                 console.log(userList);
 
-                const loggedInUser = userList.find(user => user.username === usuario);
+                userList.forEach(user => {
+                    const userRole = user.role;
 
-                if (loggedInUser) {
-                    const userRole = loggedInUser.role;
-
-                    if (userRole === 'ROLE_COLABORADOR' && userRole === 'ROLE_GESTOR') {
-                        console.error('Usuário tem múltiplas funções. Especifique uma função.');
-                    } else if (userRole === 'ROLE_COLABORADOR') {
+                    if (userRole === 'ROLE_COLABORADOR') {
                         window.location.href = 'colaborador.html';
-                    } else if (userRole === 'GESTOR') {
+                    }else{
                         window.location.href = 'gestor.html';
-                    } else {
-                        console.error('Função de usuário desconhecida:', userRole);
-                    }
-                } else {
-                    console.error('Usuário não encontrado.');
-                }
+                    } 
+                });
             })
             .catch(error => {
                 console.error('Erro ao obter informações do usuário:', error);
