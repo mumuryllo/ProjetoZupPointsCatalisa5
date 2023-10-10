@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
     loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
   
-      const usuario = document.querySelector('[name="floatingInputUser"]').value;
-      const senha = document.querySelector('[name="floatingInputPassword"]').value;
+      const usuario = document.querySelector('#floatingInputUser').value;
+      const senha = document.querySelector('#floatingInputPassword').value;
   
       const loginData = {
-        username: usuario,
+        email: usuario, // Alterei de 'username' para 'email' para corresponder ao campo HTML
         password: senha,
       };
   
@@ -36,19 +36,19 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(userList => {
               console.log(userList);
   
-              const loggedInUser = userList.find(user => user.username === usuario);
+              const loggedInUser = userList.find(user => user.email === usuario); // Alterei de 'username' para 'email' para corresponder ao campo HTML
   
               if (loggedInUser) {
-                if (loggedInUser.role) {
-                  if (loggedInUser.role === 'ROLE_COLABORADOR') {
-                    window.location.href = 'colaborador.html';
-                  } else if (loggedInUser.role === 'GESTOR') {
-                    window.location.href = 'gestor.html';
-                  } else {
-                    console.error('Função de usuário desconhecida:', loggedInUser.role);
-                  }
+                const userRole = loggedInUser.role;
+  
+                if (userRole === 'ROLE_COLABORADOR' || userRole === 'ROLE_GESTOR') { // Alterei de '&&' para '||' para verificar ambas as condições
+                  console.error('Usuário tem múltiplas funções. Especifique uma função.');
+                } else if (userRole === 'ROLE_COLABORADOR') {
+                  window.location.href = 'colaborador.html';
+                } else if (userRole === 'GESTOR') {
+                  window.location.href = 'gestor.html';
                 } else {
-                  console.error('Usuário não tem uma função definida.');
+                  console.error('Função de usuário desconhecida:', userRole);
                 }
               } else {
                 console.error('Usuário não encontrado.');

@@ -39,16 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
               const loggedInUser = userList.find(user => user.username === usuario);
   
               if (loggedInUser) {
-                if (loggedInUser.role) {
-                  if (loggedInUser.role === 'ROLE_COLABORADOR') {
-                    window.location.href = 'colaborador.html';
-                  } else if (loggedInUser.role === 'GESTOR') {
-                    window.location.href = 'gestor.html';
-                  } else {
-                    console.error('Função de usuário desconhecida:', loggedInUser.role);
-                  }
+                const userRole = loggedInUser.role;
+  
+                if (userRole === 'ROLE_COLABORADOR' || userRole === 'ROLE_GESTOR') {
+                  console.error('Usuário tem múltiplas funções. Especifique uma função.');
+                } else if (userRole === 'ROLE_COLABORADOR') {
+                  window.location.href = 'colaborador.html';
+                } else if (userRole === 'GESTOR') {
+                  window.location.href = 'gestor.html';
                 } else {
-                  console.error('Usuário não tem uma função definida.');
+                  console.error('Função de usuário desconhecida:', userRole);
                 }
               } else {
                 console.error('Usuário não encontrado.');
