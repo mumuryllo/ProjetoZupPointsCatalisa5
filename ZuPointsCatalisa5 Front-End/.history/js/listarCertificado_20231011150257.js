@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const userId = localStorage.getItem('id');
   const certificadosAccordion = document.querySelector('#certificadosAccordion');
 
+  console.log('UserID:', userId);
 
   fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
     method: 'GET',

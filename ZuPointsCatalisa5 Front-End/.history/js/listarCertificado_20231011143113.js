@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const userId = localStorage.getItem('id');
   const certificadosAccordion = document.querySelector('#certificadosAccordion');
 
-
-  fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
+  fetch(`http://localhost:8080/certificados`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -18,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     })
     .then(certificados => {
-      console.log('Certificados:', certificados);
-      
+      // Filtra os certificados pertencentes ao usuário logado (com base no 'colaborador.id')
+      const certificadosDoUsuario = certificados.filter(certificado => certificado.colaborador.id === userId);
+
       certificadosAccordion.innerHTML = ''; // Limpa o conteúdo existente
-      certificados.forEach(certificado => {
+
+      certificadosDoUsuario.forEach(certificado => {
         const certificadoItem = document.createElement('div');
         certificadoItem.className = 'accordion-item';
 
-        if(certificado.colaborador.id==userId){
-
-          certificadoItem.innerHTML = `
+        certificadoItem.innerHTML = `
           <h2 class="accordion-header" id="certificado${certificado.id}Heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#certificado${certificado.id}Collapse" aria-expanded="true" aria-controls="certificado${certificado.id}Collapse">
               Certificado ${certificado.id}
@@ -45,8 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         certificadosAccordion.appendChild(certificadoItem);
-        }
-
       });
     })
     .catch(error => {

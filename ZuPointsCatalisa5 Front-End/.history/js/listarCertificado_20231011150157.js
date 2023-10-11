@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const userId = localStorage.getItem('id');
   const certificadosAccordion = document.querySelector('#certificadosAccordion');
 
+  console.log('UserID:', userId);
 
   fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
     method: 'GET',
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const certificadoItem = document.createElement('div');
         certificadoItem.className = 'accordion-item';
 
-        if(certificado.colaborador.id==userId){
+        if(certificado.colaborador==userId){
 
           certificadoItem.innerHTML = `
           <h2 class="accordion-header" id="certificado${certificado.id}Heading">
