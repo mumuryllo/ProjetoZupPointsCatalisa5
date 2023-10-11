@@ -1,30 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('id');
-  
-    fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('id');
+  const certificadosAccordion = document.querySelector('#certificadosAccordion');
+
+  fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Falha na requisição');
       }
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Falha na requisição');
-        }
-      })
-      .then(certificados => {
-        const certificadosAccordion = document.querySelector('#certificadosAccordion');
-        
-        certificados.forEach(certificado => {
+    .then(certificados => {
+      console.log('Certificados:', certificados);
+
+      certificadosAccordion.innerHTML = ''; // Limpa o conteúdo existente
+      certificados.forEach(certificado => {
+        // Verifica se o certificado está relacionado ao usuário logado
+        if (certificado.colaborador.id == userId) { // Certifique-se de que userId corresponde ao ID do usuário logado
           const certificadoItem = document.createElement('div');
           certificadoItem.className = 'accordion-item';
-      
-          if(certificado.colaborador.id==userId){
 
-            certificadoItem.innerHTML = `
+          certificadoItem.innerHTML = `
             <h2 class="accordion-header" id="certificado${certificado.id}Heading">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#certificado${certificado.id}Collapse" aria-expanded="true" aria-controls="certificado${certificado.id}Collapse">
                 Certificado ${certificado.id}
@@ -40,13 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             </div>
           `;
-  
+
           certificadosAccordion.appendChild(certificadoItem);
-          }
-  
-        });
-      })
-      .catch(error => {
-        console.error('Ocorreu um erro:', error);
+        }
       });
-  });
+    })
+    .catch(error => {
+      console.error('Ocorreu um erro:', error);
+    });
+});

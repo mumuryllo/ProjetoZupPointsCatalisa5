@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
           const certificadoItem = document.createElement('div');
           certificadoItem.className = 'accordion-item';
       
-          if(certificado.colaborador.id==userId){
-
-            certificadoItem.innerHTML = `
+          certificadoItem.innerHTML = `
             <h2 class="accordion-header" id="certificado${certificado.id}Heading">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#certificado${certificado.id}Collapse" aria-expanded="true" aria-controls="certificado${certificado.id}Collapse">
                 Certificado ${certificado.id}
@@ -40,10 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             </div>
           `;
-  
+      
           certificadosAccordion.appendChild(certificadoItem);
-          }
-  
         });
       })
       .catch(error => {

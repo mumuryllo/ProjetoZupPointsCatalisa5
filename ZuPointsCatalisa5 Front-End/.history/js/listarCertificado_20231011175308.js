@@ -42,9 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
           `;
   
           certificadosAccordion.appendChild(certificadoItem);
-          }
-  
-        });
+       
       })
       .catch(error => {
         console.error('Ocorreu um erro:', error);
