@@ -3,46 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Avaliação de Colaboradores</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
     <div class="container mt-5">
-        <h2>Listagem de colaboradores</h2>
-        <table class="table table-responsive table-bordered">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Username</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>João</td>
-                    <td>joao123</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Avaliar</button></td>
-                </tr>
-                <!-- Adicione mais linhas conforme necessário -->
-            </tbody>
-        </table>
+        <h2>Avaliar colaboradores</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Avaliar</button>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Pontos Enviados</th>
+                        <th>Data da Avaliação</th>
+                        <th>Remetente</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Inclua aqui suas linhas de dados -->
+                    <tr>
+                   
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     
         <!-- Modal -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">Avaliar colaborador</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    
                     <!-- Modal body -->
                     <div class="modal-body">
                         <form>
@@ -61,12 +58,11 @@
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="./js/AvaliarColaborador.js"></script>
 </body>
 </html>
