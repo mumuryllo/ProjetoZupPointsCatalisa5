@@ -80,6 +80,7 @@ Dicas:
 Visite frequentemente o painel principal para se manter atualizado sobre novos benefícios e avaliações;
 Use o Zuphall de maneira responsável e autêntica, reconhecendo genuinamente os esforços de seus colegas;
 
+
 Tutorial Gestor:
 
 O gestor poderá  validar certificados;
@@ -88,7 +89,9 @@ O gestor poderá ver a listagem do colaborador assim que ele logar;
 
 OBS: Todas as funcionalidades estão em um menu superior com nome de suas respectivas funções
 
+
 Membros da equipe: Gabriela Nepucemo, João Cruz, Márlen Carolina e Muryllo Soares.
+
 
 Orientadores: Joyce Olympio, Carolina Carvalho e Carlos Lopes.
 
