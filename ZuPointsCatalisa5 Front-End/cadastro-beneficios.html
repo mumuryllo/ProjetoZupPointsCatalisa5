@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Cadasro de usuarios</title>
+  <title>Cadastro de Benefícios</title>
   <!-- MDB icon -->
   <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
   <!-- Font Awesome -->
@@ -27,9 +27,9 @@
 <body>
   <nav>
     <a href="index.html">Página Inicial</a>
-    <a href="cadastro.html">Cadastro de Certificados</a>
-    <a href="buscarTodos.html">xxxxxxxx</a>
-    <a href="buscarEspecifico.html">Resgate seus benefícios</a>
+    <a href="cadastro-beneficios.html">Cadastro de Benefícios</a>
+    <a href="buscarTodos.html">Listar colaboradores</a>
+    <a href="buscarEspecifico.html">Certificados Pendentes</a>
 </nav>
 
   <!-- Start your project here-->
@@ -59,28 +59,32 @@
                        <span class="h3 fw-bold mb-0">ZupHall</span>
                     </div>
   
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Crie sua conta</h5>
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Cadastre um benefício!</h5>
   
                     <div class="form-floating mb-4">
                       <input type="text" class="form-control form-control-lg" id="floatingInput" placeholder="Nome" name="floatingInputNome"/>
-                      <label class="form-label" for="floatingInput">Nome</label>
+                      <label class="form-label" for="floatingInput">Nome do benefício</label>
                     </div>
 
                     <div class="form-floating mb-4">
-                      <input type="email"  class="form-control form-control-lg" id="floatingInput" placeholder=" Entre com seu E-mail" name="floatingInputEmail" />
-                      <label class="form-label" >E-mail</label>
+                      <input type="number" step="5"  class="form-control form-control-lg" id="floatingInput" placeholder=" Entre com seu E-mail" name="floatingInputEmail" />
+                      <label class="form-label" >Quantidade de pontos para resgatar</label>
                     </div>
   
                     <div class="form-floating mb-4">
-                      <input type="password"  class="form-control form-control-lg" itemid="floatingInput" placeholder="Insira sua senha" name="floatingInputSenha" />
-                      <label class="form-label" >Senha</label>
+                      <input type="number"  class="form-control form-control-lg" itemid="floatingInput" placeholder="Insira sua senha" name="floatingInputSenha" />
+                      <label class="form-label" >Quantidade disponível</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                      <input type="number" step="1"  class="form-control form-control-lg" itemid="floatingInput" placeholder="Insira sua senha" name="floatingInputSenha" />
+                      <label class="form-label" >Valor estimado da unidade do produto (R$)</label>
                     </div>
   
                     <div class="pt-1 mb-4">
-                      <button class="btn btn-dark btn-lg btn-block" type="button" id="cadastrarButton">Cadastrar</button>
+                      <button class="btn btn-dark btn-lg btn-block" type="button" id="cadastrarButton">Cadastrar benefício</button>
                     </div>
   
-                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Já tem uma conta? <a href="index.html" style="color: #393f81;">Faça login aqui</a></p>
                   </form>
 
                 </div>
