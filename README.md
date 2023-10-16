@@ -39,6 +39,59 @@ Nascido da necessidade de valorizar colaboradores, o "Zuphall" é uma aplicaçã
 
 ## 📃 Tutorial de uso do ZupHall
 
+Objetivo:  Zuphall é uma plataforma desenvolvida para reconhecer e valorizar colaboradores em uma empresa por meio de um sistema de recompensas.
+
+1. Acesso e Login:
+
+Visite a plataforma do Zuphall;
+Insira seu e-mail de usuário e senha fornecidos pela administração da sua empresa;
+Clique em "Entrar";
+
+2. Painel Principal:
+
+Após o login, você será redirecionado ao painel principal, onde poderá ver benefícios disponíveis;
+Nesta seção, visualize os benefícios que você pode ganhar;
+Histórico de benefícios;
+Veja os benefícios que você já conquistou;
+
+3. Nomear Colaboradores:
+
+No menu lateral, clique em "Avaliar Colaborador";
+Adicione um breve comentário sobre o motivo do reconhecimento;
+Clique em "Enviar";
+
+4. Resgatar Benefícios:
+
+No menu lateral, clique em "Resgatar Benefícios";
+Escolha o benefício desejado;
+Confirme sua escolha e siga as instruções para o resgate;
+
+5. Registrar Certificados:
+
+No menu clique em cadastrar certificado:
+Após cadastrar o certificado, você será redirecionado para a página de colaborador, onde seus certificados serão listados;
+
+6. Logout:
+
+Selecione "Logout”;
+
+Dicas:
+
+Visite frequentemente o painel principal para se manter atualizado sobre novos benefícios e avaliações;
+Use o Zuphall de maneira responsável e autêntica, reconhecendo genuinamente os esforços de seus colegas;
+
+Tutorial Gestor:
+
+O gestor poderá  validar certificados;
+O gestor poderá cadastrar benefícios;
+O gestor poderá ver a listagem do colaborador assim que ele logar;
+
+OBS: Todas as funcionalidades estão em um menu superior com nome de suas respectivas funções
+
+Membros da equipe: Gabriela Nepucemo, João Cruz, Márlen Carolina e Muryllo Soares.
+
+Orientadores: Joyce Olympio, Carolina Carvalho e Carlos Lopes.
+
 
 ### 📚 Acessando a documentação da API
 
