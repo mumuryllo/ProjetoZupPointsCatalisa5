@@ -15,6 +15,8 @@
 
 ## 📚 O que é o Zuphall?
 
+* Nascido da necessidade de valorizar colaboradores, o "Zuphall" é uma aplicação voltada para o reconhecimento e recompensa por mérito e dedicação no ambiente corporativo.
+
 ## 🖥️ Tecnologias Utilizadas
 
 * `Java 11` - Linguagem de programação
