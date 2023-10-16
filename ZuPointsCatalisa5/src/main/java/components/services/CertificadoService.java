@@ -97,6 +97,8 @@ public class CertificadoService {
             Colaborador colaborador = certificado.getColaborador();
             if (colaborador != null) {
                 colaborador.setPontosAcumulados(colaborador.getPontosAcumulados() + 10);
+            }else {
+                colaborador.setPontosAcumulados(colaborador.getPontosAcumulados() - 10);
             }
         }
 

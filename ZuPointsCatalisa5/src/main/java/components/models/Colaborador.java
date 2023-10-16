@@ -20,9 +20,11 @@ public class Colaborador extends Usuario{
     private int pontosDoacao = 30;
 
     @OneToMany(mappedBy = "destinatario")
+    @JsonIgnore
     private List<Avaliacao> avaliacoesRecebidas;
 
     @OneToMany(mappedBy = "remetente")
+    @JsonIgnore
     private List<Avaliacao> avaliacoesFeitas;
 
     @OneToMany(mappedBy = "colaborador")
