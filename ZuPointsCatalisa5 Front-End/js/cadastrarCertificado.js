@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tipoCertificado: tipoCertificado
       };
   
-      fetch(`http://localhost:8080/certificados?colaborador_id=${userId}`, {
+      fetch(`http://localhost:8080/beneficios}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
