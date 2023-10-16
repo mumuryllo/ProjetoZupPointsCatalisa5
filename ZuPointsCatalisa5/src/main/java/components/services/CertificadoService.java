@@ -91,17 +91,22 @@ public class CertificadoService {
             return certificadoRepository.save(certificado);
     }
     private void updateData(Certificado certificado, Certificado obj) {
-        certificado.setCertificado_valido(obj.getCertificado_valido());
+        boolean certificadoEhValido = obj.getCertificado_valido() == ValidarCertificado.VALIDO;
 
-        if (obj.getCertificado_valido()==ValidarCertificado.VALIDO) {
+        if (certificado.getCertificado_valido() != obj.getCertificado_valido() && certificadoEhValido) {
             Colaborador colaborador = certificado.getColaborador();
-            if (colaborador != null) {
+            if (colaborador != null && colaborador.getPontosAcumulados() < 10) {
                 colaborador.setPontosAcumulados(colaborador.getPontosAcumulados() + 10);
-            }else {
+            }
+        }
+
+        if (certificado.getCertificado_valido() == ValidarCertificado.VALIDO && !certificadoEhValido) {
+            Colaborador colaborador = certificado.getColaborador();
+            if (colaborador != null && colaborador.getPontosAcumulados() > 0) {
                 colaborador.setPontosAcumulados(colaborador.getPontosAcumulados() - 10);
             }
         }
 
+        certificado.setCertificado_valido(obj.getCertificado_valido());
     }
-
 }
