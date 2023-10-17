@@ -1,0 +1,600 @@
+openapi: 3.0.1
+info:
+  title: ZupHall API
+  description: Api desenvolvida para incentivar o reconhecimento entre colaboradores
+  version: '1'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: CertificadoController
+    description: Endpoints relacionados a certificados
+  - name: ColaboradorController
+    description: Endpoints relacionados a colaboradores
+  - name: UsuarioController
+    description: Endpoints relacionados a usuários
+  - name: AvaliacaoController
+    description: Endpoints relacionados a avaliações
+  - name: BeneficioController
+    description: Endpoints relacionados a benefícios
+  - name: AutenticacaoController
+    description: Endpoints relacionados à autenticação
+paths:
+  /certificados/{id}:
+    get:
+      tags:
+        - CertificadoController
+      description: Obtém um certificado por ID
+      operationId: getId
+      parameters: []
+      responses:
+        '200':
+          description: Certificado encontrado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Certificado'
+        '404':
+          description: Certificado não encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Certificado'
+    put:
+      tags:
+        - CertificadoController
+      description: Atualiza um certificado por ID
+      operationId: update
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certificado'
+        required: true
+      responses:
+        '200':
+          description: Certificado atualizado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Certificado'
+        '400':
+          description: Requisição inválida
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Certificado'
+        '404':
+          description: Certificado não encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Certificado'
+  /usuarios:
+    get:
+      tags:
+        - UsuarioController
+      description: Obtém a lista de todos os usuários
+      operationId: getAll
+      responses:
+        '200':
+          description: Lista de usuários recuperada com sucesso
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioResponseDto'
+        '403':
+          description: Acesso negado
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioResponseDto'
+        '404':
+          description: Nenhum usuário encontrado
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioResponseDto'
+    post:
+      tags:
+        - UsuarioController
+      description: Cria um novo usuário com base nas informações fornecidas no corpo da requisição
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarUsuarioDTO'
+        required: true
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+        '400':
+          description: Requisição inválida
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+        '403':
+          description: Acesso negado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+  /login/auth:
+    post:
+      tags:
+        - AutenticacaoController
+      description: Realiza a autenticação do usuário
+      operationId: autenticar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioLoginDTO'
+        required: true
+      responses:
+        '200':
+          description: Autenticação bem-sucedida
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Credenciais inválidas
+          content:
+            '*/*':
+              schema:
+                type: object
+  /certificados:
+    get:
+      tags:
+        - CertificadoController
+      description: Lista todos os certificados
+      operationId: listar
+      responses:
+        '200':
+          description: Lista de certificados
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Certificado'
+    post:
+      tags:
+        - CertificadoController
+      description: Cria um novo certificado
+      operationId: criar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificadoDTO'
+        required: true
+      responses:
+        '201':
+          description: Certificado criado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CertificadoDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CertificadoDTO'
+  /beneficios:
+    get:
+      tags:
+        - BeneficioController
+      description: Lista todos os benefícios
+      operationId: listarBeneficios
+      responses:
+        '200':
+          description: Lista de benefícios
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beneficio'
+    post:
+      tags:
+        - BeneficioController
+      description: Cria um novo benefício
+      operationId: criarBeneficio
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beneficio'
+        required: true
+      responses:
+        '201':
+          description: Benefício criado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beneficio'
+  /beneficios/resgatar:
+    post:
+      tags:
+        - BeneficioController
+      description: Resgata um benefício para um colaborador
+      operationId: resgatarBeneficio
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeneficioRequestDTO'
+        required: true
+      responses:
+        '201':
+          description: Benefício resgatado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beneficio'
+  /avaliacoes:
+    get:
+      tags:
+        - AvaliacaoController
+      description: Lista as avaliações recebidas por um colaborador
+      operationId: listarAvaliacoesRecebidas
+      responses:
+        '200':
+          description: Lista de avaliações recebidas
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvaliacaoResponseDTO'
+    post:
+      tags:
+        - AvaliacaoController
+      description: Cria uma nova avaliação
+      operationId: criar_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarAvaliacaoDTO'
+        required: true
+      responses:
+        '201':
+          description: Avaliação criada com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponseDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponseDTO'
+  /usuarios/{id}:
+    get:
+      tags:
+        - UsuarioController
+      description: Obtém as informações de um usuário com base no ID especificado.
+      operationId: getById
+      parameters: []
+      responses:
+        '200':
+          description: Usuário encontrado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+        '403':
+          description: Acesso negado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+        '404':
+          description: Usuário não encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponseDto'
+  /colaboradores:
+    get:
+      tags:
+        - ColaboradorController
+      description: Obtém a lista de todos os colaboradores
+      operationId: getAll_1
+      responses:
+        '200':
+          description: Lista de colaboradores recuperada com sucesso
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colaborador'
+        '403':
+          description: Acesso negado
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colaborador'
+        '404':
+          description: Nenhum colaborador encontrado
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colaborador'
+  /colaboradores/{id}:
+    get:
+      tags:
+        - ColaboradorController
+      description: Obtém as informações de um colaborador com base no ID especificado.
+      operationId: getById_1
+      parameters: []
+      responses:
+        '200':
+          description: Colaborador encontrado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Colaborador'
+        '403':
+          description: Acesso negado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Colaborador'
+        '404':
+          description: Colaborador não encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Colaborador'
+  /beneficios/{id}:
+    get:
+      tags:
+        - BeneficioController
+      description: Obtém um benefício por ID
+      operationId: listarBeneficioPorId
+      parameters: []
+      responses:
+        '200':
+          description: Benefício encontrado com sucesso
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beneficio'
+        '404':
+          description: Benefício não encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beneficio'
+components:
+  schemas:
+    Beneficio:
+      required:
+        - nome
+        - qtdDisponivel
+        - qtdPontosParaComprar
+        - valor
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do Benefício
+          format: int64
+          example: 1
+        nome:
+          type: string
+          description: Nome do Benefício
+        qtdPontosParaComprar:
+          type: integer
+          description: Quantidade de pontos necessária para comprar o Benefício
+          format: int32
+        qtdDisponivel:
+          type: integer
+          description: Quantidade disponível do Benefício
+          format: int32
+        valor:
+          type: number
+          description: Valor do Benefício
+          format: double
+        voucher:
+          type: string
+          description: Código do Voucher do Benefício
+        dataCriacao:
+          type: string
+          description: Data de criação do Benefício
+          format: date-time
+      description: Entidade de Benefício
+    Certificado:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do Certificado
+          format: int64
+          example: 1
+        nome:
+          type: string
+          description: Nome do Certificado
+        numero_credencial:
+          type: string
+          description: Número de Credencial do Certificado
+        tipo_certificado:
+          type: string
+          description: Tipo de Certificado
+          enum:
+            - EXTERNO
+            - INTERNO
+            - OUTRO
+        link:
+          type: string
+          description: Link para o Certificado
+        certificado_valido:
+          type: string
+          description: Status de Validação do Certificado
+          enum:
+            - INVÁLIDO
+            - PENDENTE
+            - VALIDO
+          default: PENDENTE
+        colaborador:
+          $ref: '#/components/schemas/Colaborador'
+      description: Entidade de Certificado
+    Colaborador:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        nome:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+            - ROLE_COLABORADOR
+            - ROLE_GESTOR
+        pontosAcumulados:
+          type: integer
+          description: Pontos acumulados pelo Colaborador
+          format: int32
+          example: 100
+        pontosDoacao:
+          type: integer
+          description: Pontos de doação do Colaborador
+          format: int32
+          example: 30
+        beneficios:
+          type: array
+          description: Lista de Benefícios do Colaborador
+          items:
+            $ref: '#/components/schemas/Beneficio'
+      description: Entidade de Colaborador
+    CriarUsuarioDTO:
+      required:
+        - nome
+        - password
+        - username
+      type: object
+      properties:
+        nome:
+          type: string
+        username:
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+        role:
+          type: string
+          enum:
+            - ROLE_COLABORADOR
+            - ROLE_GESTOR
+    UsuarioResponseDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        role:
+          type: string
+    UsuarioLoginDTO:
+      required:
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+    CertificadoDTO:
+      required:
+        - link
+        - nome
+        - numero_credencial
+      type: object
+      properties:
+        nome:
+          type: string
+        numero_credencial:
+          type: string
+        link:
+          type: string
+        validarCertificado:
+          type: string
+          enum:
+            - INVÁLIDO
+            - PENDENTE
+            - VALIDO
+        tipoCertificado:
+          type: string
+          enum:
+            - EXTERNO
+            - INTERNO
+            - OUTRO
+    BeneficioRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    CriarAvaliacaoDTO:
+      required:
+        - destinatarioEmail
+        - mensagem
+        - qtdPontos
+      type: object
+      properties:
+        qtdPontos:
+          type: integer
+          format: int32
+        destinatarioEmail:
+          type: string
+        mensagem:
+          type: string
+    AvaliacaoResponseDTO:
+      type: object
+      properties:
+        qtdPontos:
+          type: integer
+          format: int32
+        dataDaAvaliacao:
+          type: string
+        remetenteEmail:
+          type: string
+        destinatarioEmail:
+          type: string
+        mensagem:
+          type: string
