@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Certificado</title>
+    <!-- Bootstrap CSS Link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center custom-border mb-4">
+            <div class="col-12">
+                <h3>Cadastro de Certificado</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="link">Link</label>
+                        <input type="text" class="form-control" id="link" placeholder="Link do Certificado">
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Nome do Certificado">
+                    </div>
+                    <div class="form-group">
+                        <label for="numero_credencial">Número de Credencial</label>
+                        <input type="text" class="form-control" id="numero_credencial" placeholder="Número de Credencial">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoCertificado">Tipo de Certificado</label>
+                        <select class="form-control" id="tipoCertificado">
+                            <option value="INTERNO">INTERNO</option>
+                            <option value="EXTERNO">EXTERNO</option>
+                            <option value="OUTRO">OUTRO</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts jQuery e Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLR5Ks5/9z3vF5v+ve5ZuB2+cH/yO83S/xA78B6f5"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

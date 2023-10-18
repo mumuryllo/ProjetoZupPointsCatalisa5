@@ -1,0 +1,444 @@
+{
+	"info": {
+		"_postman_id": "19cc7d26-52c3-49aa-b2ad-af9315477fae",
+		"name": "ZupPoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Listar Usuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FvQGdtYWlsLmNvbSIsImlhdCI6MTY5NjE4Nzc2MCwiZXhwIjoxNjk2MTg3ODgwLCJyb2xlIjoiQ0xJRU5URSJ9.36S9mkBHc7akfrU2KwuiCscev8wCAKR9pwc-TnkrX4Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuário ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Joao\",\r\n    \"password\":\"123456\",\r\n    \"username\": \"joao@gmail.com\",\r\n    \"role\": \"ROLE_COLABORADOR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"username\": \"joao@gmail.com\",\r\n     \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Avaliacao",
+			"item": [
+				{
+					"name": "Listar Avaliações",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FvQGdtYWlsLmNvbSIsImlhdCI6MTY5NjYxMzUxMSwiZXhwIjoxNjk2NjE3MTExLCJyb2xlIjoiQ09MQUJPUkFET1IifQ.GUPrFLSbDEFE8eR1lVuwibgmDJhrOJM5qurVp9FnrDc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/avaliacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"avaliacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Avaliar Colaborador",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FvQGdtYWlsLmNvbSIsImlhdCI6MTY5NjYxMzAyMywiZXhwIjoxNjk2NjE2NjIzLCJyb2xlIjoiQ09MQUJPUkFET1IifQ._ysS8K12lvu60fJOkRDJxnpwCkE7_7sTc9q0NjjkERs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qtdPontos\": \"10\",\r\n    \"destinatarioEmail\": \"marlen@gmail.com\",\r\n    \"mensagem\": \"parabéns pelo ótimo desempenho\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/avaliacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"avaliacoes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Certificados",
+			"item": [
+				{
+					"name": "Add certificado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FvQGdtYWlsLmNvbSIsImlhdCI6MTY5NjUyNDA3OSwiZXhwIjoxNjk2NTI3Njc5LCJyb2xlIjoiQ09MQUJPUkFET1IifQ.MY6YhXZLQlWeNXIT9X_JueGmjuJ1vo8BNV6qxoLE50s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"link\":\"teste\",\r\n    \"nome\": \"Teste\",\r\n    \"numero_credencial\": \"123456\",\r\n    \"tipoCertificado\": \"INTERNO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/certificados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"certificados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Certificados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FvQGdtYWlsLmNvbSIsImlhdCI6MTY5NjUzMDI0OSwiZXhwIjoxNjk2NTMzODQ5LCJyb2xlIjoiQ09MQUJPUkFET1IifQ.1TzufFYiBdu9BO0qcCxTgUkVWRkhPWta1Yq1m-wtQX8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/certificados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"certificados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Validação",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGFAZ21haWwuY29tIiwiaWF0IjoxNjk2NTM1NDIwLCJleHAiOjE2OTY1MzkwMjAsInJvbGUiOiJHRVNUT1IifQ.7vqQD3Kp4XFI4x8VudnA_bNXt4lSUYnKbJhU9agLcKM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"certificado_valido\": \"VALIDO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/certificados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"certificados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beneficio",
+			"item": [
+				{
+					"name": "ADD Benficio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGFAZ21haWwuY29tIiwiaWF0IjoxNjk2NjEzOTI1LCJleHAiOjE2OTY2MTc1MjUsInJvbGUiOiJHRVNUT1IifQ.2Pzx89UbUUKKCDZm11KSTBwjOIFk43jfmsCIXgR5r4I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Voucher Amazon\",\r\n    \"qtdPontosParaComprar\": 90,\r\n    \"qtdDisponivel\": 10,\r\n    \"valor\": 50.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/beneficios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"beneficios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Beneficios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGFAZ21haWwuY29tIiwiaWF0IjoxNjk2NjEyODU3LCJleHAiOjE2OTY2MTY0NTcsInJvbGUiOiJHRVNUT1IifQ.mRpbz1bsPnCUqujgBuqFZY-fJlP02FtGU_Bm-NpBn_Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/beneficios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"beneficios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Beneficios ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGFAZ21haWwuY29tIiwiaWF0IjoxNjk2NjEyODU3LCJleHAiOjE2OTY2MTY0NTcsInJvbGUiOiJHRVNUT1IifQ.mRpbz1bsPnCUqujgBuqFZY-fJlP02FtGU_Bm-NpBn_Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/beneficios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"beneficios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resgate Beneficio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJsZW5AZ21haWwuY29tIiwiaWF0IjoxNjk2NjE0MDYwLCJleHAiOjE2OTY2MTc2NjAsInJvbGUiOiJDT0xBQk9SQURPUiJ9.rXSdzCn2qWad6p5DEzsuP2MQhHr_OuTJZ5PDotw-g0M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/beneficios/resgatar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"beneficios",
+								"resgatar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

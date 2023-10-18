@@ -1,0 +1,48 @@
+.background-login {
+    background-color: #393f81;
+}
+
+.custom-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+}
+
+.card-body {
+    padding: 4rem 4rem;
+}
+
+.form-control-lg {
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+}
+
+.btn-dark {
+    background-color: #393f81;
+    border: none;
+    border-radius: 1.2rem;
+}
+
+.btn-dark:hover {
+    background-color: #303560;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}

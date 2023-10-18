@@ -1,0 +1,34 @@
+
+
+html, body {
+    height: 100%;
+  }
+  
+  .vh-100 {
+    height: 100%;
+  }
+  
+  body {
+    background-color: #40ba84;
+  }
+
+.background-login{
+    background-color: #40ba84;
+}
+
+.custom-card {
+    max-height: 85vh; 
+    min-width: auto;
+  }
+
+  body, html {
+    height: 100%;
+  }
+  
+  .background-login {
+    /* Use flexbox para centralizar o card verticalmente e horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }

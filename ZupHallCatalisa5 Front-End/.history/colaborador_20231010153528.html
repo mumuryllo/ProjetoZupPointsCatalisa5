@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Funcionários</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <style>
+        .custom-border {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        /* Adicionando margens verticais maiores */
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Colaboradores</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Coluna da esquerda com o ranking -->
+            <div class="col-md-6 custom-border mb-4">
+                <h3>Ranking de Colaboradores</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Colocação</th>
+                            <th>Nome</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Funcionário 1</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Funcionário 2</td>
+                            <td>900</td>
+                        </tr>
+                        <!-- Adicione mais linhas conforme necessário -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Coluna da direita com divisão vertical -->
+            <div class="col-md-6">
+                <!-- Parte superior - Seu Progresso -->
+                <div class="row justify-content-center custom-border mb-4" style="max-height: 50vh; overflow-y: auto;">
+                    <div class="col-12">
+                        <h3>Seu Progresso</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Pontos Recebidos</th>
+                                        <th>Atividade Realizada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>500</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <!-- Adicione mais linhas conforme necessário -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Divisão vertical -->
+                <div class="row">
+                    <div class="col-12 border-right">
+                        <!-- Parte inferior - Resgate sua Recompensa -->
+                        <div class="row justify-content-center custom-border mb-4" style="max-height: 50vh; overflow-y: auto;">
+                            <div class="col-12">
+                                <h3>Resgate sua Recompensa</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome da Recompensa</th>
+                                                <th>Pontos Necessários</th>
+                                                <th>Quantidade Disponível</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Recompensa 1</td>
+                                                <td>200</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Recompensa 2</td>
+                                                <td>500</td>
+                                                <td>2</td>
+                                            </tr>
+                                            <!-- Adicione mais linhas conforme necessário -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button class="btn btn-primary text-center">Ver Todas as Recompensas</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLR5Ks5/9z3vF5v+ve5Z/2P5a5/5a5I5kO5F0b5j8O5O5"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+crossorigin="anonymous"></script>
+</body>
+</html>
